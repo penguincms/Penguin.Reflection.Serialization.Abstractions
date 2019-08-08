@@ -1,0 +1,799 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Penguin.Reflection.Serialization.Abstractions</name>
+    </assembly>
+    <members>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Attributes.IdOnlyMetaSerialization">
+            <summary>
+            Only serialize the Id(i) for this property
+            </summary>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Attributes.SkipMetaSerialization">
+            <summary>
+            Attribute telling the MetaSerialization to skip this property
+            </summary>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta">
+            <summary>
+            Shared interface allowing an object to pass through the Meta Serialization system
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta.i">
+            <summary>
+            An index where they object may be found in the MetaConstructor cache, or -1 of temporary instance
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta.IsHydrated">
+            <summary>
+            True of this object has been reconstructed from the MetaData cache
+            </summary>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta.Hydrate(System.Collections.Generic.IDictionary{System.Int32,Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta})">
+            <summary>
+            Recursively hydrates this object and all of this children
+            </summary>
+            <param name="meta">The metadata dictionary representing the object cache</param>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta.HydrateChild``1(``0,System.Collections.Generic.IDictionary{System.Int32,Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta})">
+            <summary>
+            Recursively hydrates a single property on a Meta object
+            </summary>
+            <typeparam name="T">Any type</typeparam>
+            <param name="toHydrate">The property to hydrate</param>
+            <param name="meta">The metadata dictionary representing the object cache</param>
+            <returns>The Hydrated object</returns>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.IEnumValue">
+            <summary>
+            An interface used for representing an Enum value (or equivalent)
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IEnumValue.Label">
+            <summary>
+            The name of the option
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IEnumValue.Value">
+            <summary>
+            The Value of the option
+            </summary>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.IHasAttributes">
+            <summary>
+            Interface used for extension methods to access Attributes on IMetaType and IMeatProperty
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IHasAttributes.Attributes">
+            <summary>
+            A List of Attributes found on this IMetaObject
+            </summary>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.IHasProperties">
+            <summary>
+            Pointless interface used for extension methods to access properties of IMetaType
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IHasProperties.Properties">
+            <summary>
+            The properties of the IMetaType
+            </summary>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaAttribute">
+            <summary>
+            Implement this to create an attribute that can be passed through the serialization system
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaAttribute.Instance">
+            <summary>
+            A concrete instance of the attribute in MetaObject form
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaAttribute.IsInherited">
+            <summary>
+            Whether or not this attribute is inherited from a base type or declared on this type
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaAttribute.Type">
+            <summary>
+            The type of the underlying attribute instance
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaAttribute.Item(System.String)">
+            <summary>
+            Should retrieve a property from the MetaObject instance of this attribute based on property name
+            </summary>
+            <param name="PropertyName"></param>
+            <returns>The IMetaObject representing the property value</returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaAttribute.ToString">
+            <summary>
+            Convert this attribute to a string
+            </summary>
+            <returns>A string representation of the attribute</returns>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject">
+            <summary>
+            Interface used to allow an object to pass through the Meta Serialization system
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.BuildExceptions">
+            <summary>
+            Index of errors that occured while creating this instance
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.CollectionItems">
+            <summary>
+            If this object is a collection, this list should contain the contents
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Exception">
+            <summary>
+            If this object was not created due to an error, this should contain the ID of the error
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Meta">
+            <summary>
+            An instance of the cache which is required to be exposed for any objects being serialized to JSON since the
+            Serialization works on this interface
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Null">
+            <summary>
+            True if the input value was null during creation
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Properties">
+            <summary>
+            A list of the accessible (child) properties for this object
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Property">
+            <summary>
+            The parent property referencing this object. Unreliable in local types
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Template">
+            <summary>
+            If this is a collection, this should contain an empty instance of the collection unit type (for creating new children)
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Type">
+            <summary>
+            The type information for this Meta instance
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.v">
+            <summary>
+            The index of the Value in the Meta dictionary, if the value of this object is cached there
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Value">
+            <summary>
+            A string representation of the value if value type, or ToString if not
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Item(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaProperty)">
+            <summary>
+            Used to access property value by IMetaProperty
+            </summary>
+            <param name="property">The IMetaProperty to search for</param>
+            <returns>The IMetaObject value of the property</returns>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Item(System.String)">
+            <summary>
+            Used to access a property value by Name
+            </summary>
+            <param name="PropertyName">The nam of the property to retrieve</param>
+            <returns>The IMetaObject value of the property</returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.GetCoreType">
+            <summary>
+            The CoreType of this IMetaObject
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.GetParent">
+            <summary>
+            If this object is from a parent, this should retrieve it. Unreliable for local types
+            </summary>
+            <returns>The parent object</returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.HasProperty(System.String)">
+            <summary>
+            Checks to see if the object has a property of a name
+            </summary>
+            <param name="propertyName">The property name to check for</param>
+            <returns>A bool representing whether or not the property exists</returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.IsRecursive">
+            <summary>
+            For referential types, this should indicate if this object is is part of a recursive hierarchy so it can be skipped
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.RemoveItem(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject)">
+            <summary>
+            Optionally allows for removing an item from the collection
+            </summary>
+            <param name="instance">The item to remove from the collection</param>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.RemoveProperty(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject)">
+            <summary>
+            Optionally allows for removing a property from an IMetaObject
+            </summary>
+            <param name="instance">The property instance to remove</param>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.SetParent(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject)">
+            <summary>
+            Used to set the parent of the object, can be called during recursive traversal to ensure that the UNRELIABLE parent property returns correctly
+            </summary>
+            <param name="p">The IMetaObject to set as a parent</param>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaProperty">
+            <summary>
+            Interface used to represent a property of an object
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaProperty.DeclaringType">
+            <summary>
+            The type this property is declared on
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaProperty.Name">
+            <summary>
+            The name of the property
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaProperty.Type">
+            <summary>
+            The type of the property
+            </summary>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaSerializable">
+            <summary>
+            An interface used as an anchor for the T4 template that generates the class for serializing (quickly) MetaObjects
+            </summary>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType">
+            <summary>
+            Interface used to represent a MetaType. Implement to allow an object to pass through a Meta system
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.AssemblyQualifiedName">
+            <summary>
+            The assembly qualified name (or unique type name)
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.BaseType">
+            <summary>
+            The type this is derived from
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.CollectionType">
+            <summary>
+            An optional MetaType representing the base type of a represented collection
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.CoreType">
+            <summary>
+            The coreType of the Type represented, used for routing
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.Default">
+            <summary>
+            The default value for this type in string form
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.FullName">
+            <summary>
+            The fully qualified name of the type
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.IsArray">
+            <summary>
+            True if an array
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.IsEnum">
+            <summary>
+            True if an enum, or contains EnumValues
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.IsNullable">
+            <summary>
+            True if nullable
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.IsNumeric">
+            <summary>
+            True if this type represents a number of any kind
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.Name">
+            <summary>
+            The Name of this type (or equivalent)
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.Namespace">
+            <summary>
+            The namespace the type is found in
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.Parameters">
+            <summary>
+            A list of generic parameters needed to construct this type
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.Values">
+            <summary>
+            If this type is an Enum (or equivalent), this contains the possible values
+            </summary>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaType.GetHashCode">
+            <summary>
+            Implement this however
+            </summary>
+            <returns>Whatever you want</returns>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.IStringHolder">
+            <summary>
+            Interface used to represent an object that holds a string (for redundancy avoidance during serialization)
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IStringHolder.v">
+            <summary>
+            The actual value of the string
+            </summary>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.ITypeInfo">
+            <summary>
+            Interface allowing two objects to be compared by MetaType
+            </summary>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.ITypeInfo.TypeOf">
+            <summary>
+            Implement this to return the type of the MetaObject
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Objects.EnumValue">
+            <summary>
+            A class used to represent a single enum value for serialization
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Objects.EnumValue.Label">
+            <summary>
+            The name of the enum value
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Objects.EnumValue.Value">
+            <summary>
+            The underlying data (int, long, etc) in string form
+            </summary>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Constructors.ObjectConstructor">
+            <summary>
+            Encapsulates common data needed by MetaObject constructors
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Constructors.ObjectConstructor.Object">
+            <summary>
+            An object instance to create
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Constructors.ObjectConstructor.PropertyInfo">
+            <summary>
+            The property Info representing the object instance
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Constructors.ObjectConstructor.Type">
+            <summary>
+            The type of the object
+            </summary>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Constructors.ObjectConstructor.#ctor(System.Reflection.PropertyInfo,System.Type,System.Object)">
+            <summary>
+            Creates a new instance of the object constructor
+            </summary>
+            <param name="pi">The property Info representing the object instance</param>
+            <param name="t">The type of the object </param>
+            <param name="o">An object instance to create</param>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder">
+            <summary>
+            Base class for defining properties for Meta holders
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder.i">
+            <summary>
+            Does nothing for this object type
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder.IsHydrated">
+            <summary>
+            Does nothing for this object type
+            </summary>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder.Hydrate(System.Collections.Generic.IDictionary{System.Int32,Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta})">
+            <summary>
+            Does nothing for this object type
+            </summary>
+            <param name="meta">Does nothing for this object type</param>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder.HydrateChild``1(``0,System.Collections.Generic.IDictionary{System.Int32,Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta})">
+            <summary>
+            Does nothing for this object type
+            </summary>
+            <typeparam name="T">Does nothing for this object type</typeparam>
+            <param name="toHydrate">Does nothing for this object type</param>
+            <param name="meta">Does nothing for this object type</param>
+            <returns>Does nothing for this object type</returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder.HydrateList``1(System.Collections.Generic.IList{``0},System.Collections.Generic.IDictionary{System.Int32,Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta})">
+            <summary>
+            Does nothing for this object type
+            </summary>
+            <typeparam name="T">Does nothing for this object type</typeparam>
+            <param name="toHydrate">Does nothing for this object type</param>
+            <param name="meta">Does nothing for this object type</param>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup">
+            <summary>
+            Used to generate a unique key for a set of objects, for avoiding duplication during serialization
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup.Objects">
+            <summary>
+            The objects in the group
+            </summary>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup.#ctor(System.Object[])">
+            <summary>
+            Creates a new instance of the group
+            </summary>
+            <param name="objects"></param>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup.#ctor(Penguin.Reflection.Serialization.Abstractions.Constructors.ObjectConstructor)">
+            <summary>
+            Creates a new keygroup from an object constructor
+            </summary>
+            <param name="oc">The object constructor to wrap</param>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup.op_Inequality(Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup,Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup)">
+            <summary>
+            Tests for inequality between keygroups
+            </summary>
+            <param name="obj1">The first keygroup</param>
+            <param name="obj2">the second keygroup</param>
+            <returns>whether or not the groups are equal</returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup.op_Equality(Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup,Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup)">
+            <summary>
+            Tests for equality between keygroups
+            </summary>
+            <param name="obj1">The first keygroup</param>
+            <param name="obj2">the second keygroup</param>
+            <returns>whether or not the groups are equal</returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup.Equals(Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup)">
+            <summary>
+            Checks if this keygroup is equal to another
+            </summary>
+            <param name="other">the other keygroup</param>
+            <returns>Whether or not the keygroups are equal</returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup.Equals(System.Object)">
+            <summary>
+            Checks if this keygroup is equal to another
+            </summary>
+            <param name="obj">The object to test</param>
+            <returns>If this keygroup is equal to the other</returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup.GetHashCode">
+            <summary>
+            Gets the average hashcode of the objects in the group
+            </summary>
+            <returns>The average hashcode of the objects in the group</returns>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaAttributeHolder">
+            <summary>
+            Wraps an Attribute instance allowing it to pass through the Meta Serialization System
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaAttributeHolder.Instance">
+            <summary>
+            Returns a MetaObjectHolder instance representing the wrapped attribute instance
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaAttributeHolder.IsInherited">
+            <summary>
+            Whether or not its declared on the parent of wherever it came from
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaAttributeHolder.Type">
+            <summary>
+            The type of this wrapped attribute
+            </summary>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaAttributeHolder.#ctor(System.Object,System.Boolean)">
+            <summary>
+            Creats a new instance of this holder using the specified attribute instance
+            </summary>
+            <param name="a">The attribute instance to wrap</param>
+            <param name="isInherited">Whether or not its declared on the parent of wherever it came from</param>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaAttributeHolder.Item(System.String)">
+            <summary>
+            Returns a wrapped object by property name
+            </summary>
+            <param name="PropertyName">The name of the property to wrap</param>
+            <returns>The wrapped property value</returns>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder">
+            <summary>
+            A Wrapper intended to allow for use of the MetaObject system without serializing the contents. Not currently reliable
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.BuildExceptions">
+            <summary>
+            Not Used
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.CollectionItems">
+            <summary>
+            If this Wrapper contains a collection, this list will contain the MetaObject representation of its contents
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Exception">
+            <summary>
+            Not Used
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Meta">
+            <summary>
+            Not Used. Should probably be Internal
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Null">
+            <summary>
+            Check if this wrapper was created from a Null
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Properties">
+            <summary>
+            A list of IMetaObjects representing the child properties for this value
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Property">
+            <summary>
+            Property information representing the relationship between this object and its parent. Null if no parent
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Template">
+            <summary>
+            If this object is a collection, this holds the type definition for the collection type
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Type">
+            <summary>
+            The type of this MetaObject
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.v">
+            <summary>
+            Not used
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Value">
+            <summary>
+            The string representation of the object held by this wrapper. Contains ToString
+            </summary>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.#ctor(System.Object,Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder,Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder)">
+            <summary>
+            Constructs MetaObject compatible instance from an object without serializing
+            </summary>
+            <param name="o">The object to wrap</param>
+            <param name="parent">The parent that holds this object as a property</param>
+            <param name="property">Property information representing the relationship between this object and its parent</param>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Item(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaProperty)">
+            <summary>
+            Casts a child property to a MetaObject using an IProperty definition
+            </summary>
+            <param name="property">the IProperty definition used to access</param>
+            <returns>A MetaObject wrapped property value</returns>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Item(System.String)">
+            <summary>
+            Casts a child property to a MetaObject using a property name
+            </summary>
+            <param name="PropertyName">The name of the property to be accessed</param>
+            <returns>A MetaObject wrapped property value</returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.GetCoreType">
+            <summary>
+            Gets the abstract CoreType of the object held by this wrapper
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.GetParent">
+            <summary>
+            Gets the Parent MetaObject for which this object is a child property. Null if top level
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.HasProperty(System.String)">
+            <summary>
+            Check to see if this MetaObject has a property matching the given name
+            </summary>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.IsRecursive">
+            <summary>
+            Checks to see if the upline of the object is recursive
+            </summary>
+            <returns>A bool representing whether or not the upline of the object is recursivee</returns>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.RemoveItem(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject)">
+            <summary>
+            Not Used
+            </summary>
+            <param name="instance">Not Used</param>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.RemoveProperty(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject)">
+            <summary>
+            Not Used
+            </summary>
+            <param name="instance">Not Used</param>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.SetParent(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject)">
+            <summary>
+            Sets the parent object for which this child is a property
+            </summary>
+            <param name="p">The parent MetaObject</param>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.TypeOf">
+            <summary>
+            Returns the Type of this MetaObjects value
+            </summary>
+            <returns>The Type of this MetaObjects value</returns>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder">
+            <summary>
+            Wraps a PropertyInfo allowing it to be used by the MetaSerialization System
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder.Attributes">
+            <summary>
+            Retrieves a list of wrapped attributes found on this propertyinfo
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder.Type">
+            <summary>
+            The type of this property
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder.DeclaringType">
+            <summary>
+            The type this property is declared on
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder.Name">
+            <summary>
+            The name of this property
+            </summary>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder.#ctor(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a new instance of this Property holder from the specified property info
+            </summary>
+            <param name="p">The property info to wrap</param>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder.TypeOf">
+            <summary>
+            Returns the type of the property represented by this wrapper
+            </summary>
+            <returns>The type of the property represented by this wrapper</returns>
+        </member>
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder">
+            <summary>
+            Wraps an instance of a System.Type allowing it to be used by the Meta system
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Attributes">
+            <summary>
+            A list of attributes found on the Type contained in this wrapper
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.CollectionType">
+            <summary>
+            If this Type is a collection, this property contains the unit type for the collection
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.CoreType">
+            <summary>
+            Gets the CoreType for the type in this wrapper
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Default">
+            <summary>
+            Returns the Default value for this type
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.IsNullable">
+            <summary>
+            True if this type is a Nullable?
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Parameters">
+            <summary>
+            The Generic arguments for this type, Meta Wrapped
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Properties">
+            <summary>
+            The properties for this Type, Meta Wrapped
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Values">
+            <summary>
+            If this type is an enum, this returns the values
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.AssemblyQualifiedName">
+            <summary>
+            The AssemblyQualifiedName for this Type
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.BaseType">
+            <summary>
+            The BaseType for this type, MetaWrapped
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.FullName">
+            <summary>
+            The FullName for this type
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.IsArray">
+            <summary>
+            True if this type is an array
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.IsEnum">
+            <summary>
+            True if this type is an enum
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.IsNumeric">
+            <summary>
+            True if this type is a numeric type
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Name">
+            <summary>
+            The Name of the underlying type
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Namespace">
+            <summary>
+            The Namespace this type is found in
+            </summary>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.#ctor(System.Type)">
+            <summary>
+            Creates a new instance of this wrappper from a specified System.Type
+            </summary>
+            <param name="t">The System.Type to wrap</param>
+        </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.TypeOf">
+            <summary>
+            Returns the type of the "Type" wrapped by this instance
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
