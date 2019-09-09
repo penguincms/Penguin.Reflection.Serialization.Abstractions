@@ -7,7 +7,7 @@
     <PackageLicenseFile>License.txt</PackageLicenseFile>
     <PackageProjectUrl>http://www.penguinms.com/Nuget</PackageProjectUrl>
     <PackageIconUrl>http://www.penguinms.com/client/images/pg.png</PackageIconUrl>
-    <Version>2.0.9</Version>
+    <Version>2.0.10</Version>
     <Description>Abstract types for use in the Penguin.Reflection.Serialization system</Description>
     <PackageLicenseFile>License.txt</PackageLicenseFile>
   </PropertyGroup>
@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Penguin.Reflection" Version="3.15.6" />
+    <PackageReference Include="Penguin.Reflection" Version="3.15.7" />
     <PackageReference Include="Penguin.Reflection.Abstractions" Version="2.0.6" />
     <PackageReference Include="Penguin.Reflection.Extensions" Version="2.0.14" />
   </ItemGroup>
