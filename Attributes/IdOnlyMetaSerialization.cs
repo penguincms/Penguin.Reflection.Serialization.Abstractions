@@ -5,7 +5,8 @@ namespace Penguin.Reflection.Serialization.Abstractions.Attributes
     /// <summary>
     /// Only serialize the Id(i) for this property
     /// </summary>
-    public class IdOnlyMetaSerialization : Attribute
+    [AttributeUsage(AttributeTargets.Property)]
+    public class IdOnlyMetaSerializationAttribute : Attribute
     {
     }
 }

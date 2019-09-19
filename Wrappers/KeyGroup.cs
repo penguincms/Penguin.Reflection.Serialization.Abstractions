@@ -1,6 +1,7 @@
 ﻿using Penguin.Reflection.Serialization.Abstractions.Constructors;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
@@ -15,7 +16,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// The objects in the group
         /// </summary>
-        public HashSet<object> Objects { get; set; }
+        public HashSet<object> Objects { get; }
 
         #endregion Properties
 
@@ -34,8 +35,9 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// Creates a new keygroup from an object constructor
         /// </summary>
         /// <param name="oc">The object constructor to wrap</param>
-        public KeyGroup(ObjectConstructor oc) : this(oc.Object, oc.PropertyInfo, oc.Type)
+        public KeyGroup(ObjectConstructor oc) : this(oc?.Object, oc?.PropertyInfo, oc?.Type)
         {
+
         }
 
         #endregion Constructors
@@ -63,12 +65,12 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
                 return true;
             }
 
-            if (ReferenceEquals(obj1, null))
+            if (obj1 is null)
             {
                 return false;
             }
 
-            if (ReferenceEquals(obj2, null))
+            if (obj2 is null)
             {
                 return false;
             }

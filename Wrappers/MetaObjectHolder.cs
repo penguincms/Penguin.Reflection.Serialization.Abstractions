@@ -4,6 +4,7 @@ using Penguin.Reflection.Serialization.Abstractions.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
@@ -59,7 +60,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         public IList<IMetaObject> Properties
         {
             get =>
-                Cache.GetProperties(this._value.GetType())
+                TypeCache.GetProperties(this._value.GetType())
                 .Where(p => !p.GetIndexParameters().Any())
                 .Select(p
                 => new MetaObjectHolder(
@@ -124,9 +125,15 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// Casts a child property to a MetaObject using an IProperty definition
         /// </summary>
-        /// <param name="property">the IProperty definition used to access</param>
+        /// <param name="metaProperty">the IProperty definition used to access</param>
         /// <returns>A MetaObject wrapped property value</returns>
-        public IMetaObject this[IMetaProperty property] => new MetaObjectHolder(this._value.GetType().GetProperty(property.Name).GetValue(this._value));
+        public IMetaObject this[IMetaProperty metaProperty] {
+            get
+            {
+                Contract.Requires(metaProperty != null);
+                return new MetaObjectHolder(this._value.GetType().GetProperty(metaProperty.Name).GetValue(this._value));
+            }
+        }
 
         /// <summary>
         /// Casts a child property to a MetaObject using a property name
@@ -158,7 +165,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <returns></returns>
         public bool HasProperty(string propertyName)
         {
-            return Cache.GetProperties(this._value.GetType()).Any(p => p.Name == propertyName);
+            return TypeCache.GetProperties(this._value.GetType()).Any(p => p.Name == propertyName);
         }
 
         /// <summary>

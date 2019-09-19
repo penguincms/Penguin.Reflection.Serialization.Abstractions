@@ -73,9 +73,9 @@ namespace Penguin.Reflection.Serialization.Abstractions.Interfaces
         /// <summary>
         /// Used to access property value by IMetaProperty
         /// </summary>
-        /// <param name="property">The IMetaProperty to search for</param>
+        /// <param name="metaProperty">The IMetaProperty to search for</param>
         /// <returns>The IMetaObject value of the property</returns>
-        IMetaObject this[IMetaProperty property] { get; }
+        IMetaObject this[IMetaProperty metaProperty] { get; }
 
         /// <summary>
         /// Used to access a property value by Name

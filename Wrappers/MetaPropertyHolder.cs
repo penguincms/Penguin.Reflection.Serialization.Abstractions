@@ -21,7 +21,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
             {
                 if (this.attributes is null)
                 {
-                    this.attributes = Cache.GetCustomAttributes(this._value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).Cast<IMetaAttribute>().ToList();
+                    this.attributes = TypeCache.GetCustomAttributes(this._value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).Cast<IMetaAttribute>().ToList();
                 }
 
                 return this.attributes;

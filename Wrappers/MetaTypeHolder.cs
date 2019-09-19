@@ -18,7 +18,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// A list of attributes found on the Type contained in this wrapper
         /// </summary>
-        public IEnumerable<IMetaAttribute> Attributes => Cache.GetCustomAttributes(this._value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).ToList<IMetaAttribute>();
+        public IEnumerable<IMetaAttribute> Attributes => TypeCache.GetCustomAttributes(this._value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).ToList<IMetaAttribute>();
 
         /// <summary>
         /// If this Type is a collection, this property contains the unit type for the collection
@@ -48,7 +48,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// The properties for this Type, Meta Wrapped
         /// </summary>
-        public IList<IMetaProperty> Properties => Cache.GetProperties(this._value).Select(t => new MetaPropertyHolder(t)).ToList<IMetaProperty>();
+        public IList<IMetaProperty> Properties => TypeCache.GetProperties(this._value).Select(t => new MetaPropertyHolder(t)).ToList<IMetaProperty>();
 
         /// <summary>
         /// If this type is an enum, this returns the values
