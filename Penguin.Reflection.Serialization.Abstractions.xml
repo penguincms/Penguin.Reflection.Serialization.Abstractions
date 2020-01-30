@@ -4,12 +4,12 @@
         <name>Penguin.Reflection.Serialization.Abstractions</name>
     </assembly>
     <members>
-        <member name="T:Penguin.Reflection.Serialization.Abstractions.Attributes.IdOnlyMetaSerialization">
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Attributes.IdOnlyMetaSerializationAttribute">
             <summary>
             Only serialize the Id(i) for this property
             </summary>
         </member>
-        <member name="T:Penguin.Reflection.Serialization.Abstractions.Attributes.SkipMetaSerialization">
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Attributes.SkipMetaSerializationAttribute">
             <summary>
             Attribute telling the MetaSerialization to skip this property
             </summary>
@@ -177,7 +177,7 @@
             <summary>
             Used to access property value by IMetaProperty
             </summary>
-            <param name="property">The IMetaProperty to search for</param>
+            <param name="metaProperty">The IMetaProperty to search for</param>
             <returns>The IMetaObject value of the property</returns>
         </member>
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Item(System.String)">
@@ -602,7 +602,7 @@
             <summary>
             Casts a child property to a MetaObject using an IProperty definition
             </summary>
-            <param name="property">the IProperty definition used to access</param>
+            <param name="metaProperty">the IProperty definition used to access</param>
             <returns>A MetaObject wrapped property value</returns>
         </member>
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Item(System.String)">
