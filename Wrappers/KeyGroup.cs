@@ -1,7 +1,6 @@
 ﻿using Penguin.Reflection.Serialization.Abstractions.Constructors;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 
 namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
@@ -37,7 +36,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <param name="oc">The object constructor to wrap</param>
         public KeyGroup(ObjectConstructor oc) : this(oc?.Object, oc?.PropertyInfo, oc?.Type)
         {
-
         }
 
         #endregion Constructors

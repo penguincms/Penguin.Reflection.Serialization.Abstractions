@@ -127,7 +127,8 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// </summary>
         /// <param name="metaProperty">the IProperty definition used to access</param>
         /// <returns>A MetaObject wrapped property value</returns>
-        public IMetaObject this[IMetaProperty metaProperty] {
+        public IMetaObject this[IMetaProperty metaProperty]
+        {
             get
             {
                 Contract.Requires(metaProperty != null);

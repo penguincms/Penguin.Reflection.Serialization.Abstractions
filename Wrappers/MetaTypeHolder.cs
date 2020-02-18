@@ -16,9 +16,19 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         #region Properties
 
         /// <summary>
+        /// The AssemblyQualifiedName for this Type
+        /// </summary>
+        public string AssemblyQualifiedName => this._value.AssemblyQualifiedName;
+
+        /// <summary>
         /// A list of attributes found on the Type contained in this wrapper
         /// </summary>
         public IEnumerable<IMetaAttribute> Attributes => TypeCache.GetCustomAttributes(this._value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).ToList<IMetaAttribute>();
+
+        /// <summary>
+        /// The BaseType for this type, MetaWrapped
+        /// </summary>
+        public IMetaType BaseType => this._value.BaseType is null ? null : new MetaTypeHolder(this._value.BaseType);
 
         /// <summary>
         /// If this Type is a collection, this property contains the unit type for the collection
@@ -36,9 +46,39 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         public string Default => this._value.GetDefaultValue()?.ToString();
 
         /// <summary>
+        /// The FullName for this type
+        /// </summary>
+        public string FullName => this._value.FullName;
+
+        /// <summary>
+        /// True if this type is an array
+        /// </summary>
+        public bool IsArray => this._value.IsArray;
+
+        /// <summary>
+        /// True if this type is an enum
+        /// </summary>
+        public bool IsEnum => this._value.IsEnum;
+
+        /// <summary>
         /// True if this type is a Nullable?
         /// </summary>
         public bool IsNullable => Nullable.GetUnderlyingType(this._value) != null;
+
+        /// <summary>
+        /// True if this type is a numeric type
+        /// </summary>
+        public bool IsNumeric => this._value.IsNumericType();
+
+        /// <summary>
+        /// The Name of the underlying type
+        /// </summary>
+        public string Name => this._value.Name;
+
+        /// <summary>
+        /// The Namespace this type is found in
+        /// </summary>
+        public string Namespace => this._value.Namespace;
 
         /// <summary>
         /// The Generic arguments for this type, Meta Wrapped
@@ -71,46 +111,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
                 return toReturn;
             }
         }
-
-        /// <summary>
-        /// The AssemblyQualifiedName for this Type
-        /// </summary>
-        public string AssemblyQualifiedName => this._value.AssemblyQualifiedName;
-
-        /// <summary>
-        /// The BaseType for this type, MetaWrapped
-        /// </summary>
-        public IMetaType BaseType => this._value.BaseType is null ? null : new MetaTypeHolder(this._value.BaseType);
-
-        /// <summary>
-        /// The FullName for this type
-        /// </summary>
-        public string FullName => this._value.FullName;
-
-        /// <summary>
-        /// True if this type is an array
-        /// </summary>
-        public bool IsArray => this._value.IsArray;
-
-        /// <summary>
-        /// True if this type is an enum
-        /// </summary>
-        public bool IsEnum => this._value.IsEnum;
-
-        /// <summary>
-        /// True if this type is a numeric type
-        /// </summary>
-        public bool IsNumeric => this._value.IsNumericType();
-
-        /// <summary>
-        /// The Name of the underlying type
-        /// </summary>
-        public string Name => this._value.Name;
-
-        /// <summary>
-        /// The Namespace this type is found in
-        /// </summary>
-        public string Namespace => this._value.Namespace;
 
         #endregion Properties
 

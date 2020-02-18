@@ -29,11 +29,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         }
 
         /// <summary>
-        /// The type of this property
-        /// </summary>
-        public IMetaType Type => new MetaTypeHolder(this._value.PropertyType);
-
-        /// <summary>
         /// The type this property is declared on
         /// </summary>
         public IMetaType DeclaringType => new MetaTypeHolder(this._value.DeclaringType);
@@ -42,6 +37,11 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// The name of this property
         /// </summary>
         public string Name => this._value.Name;
+
+        /// <summary>
+        /// The type of this property
+        /// </summary>
+        public IMetaType Type => new MetaTypeHolder(this._value.PropertyType);
 
         #endregion Properties
 
