@@ -671,11 +671,6 @@
             Retrieves a list of wrapped attributes found on this propertyinfo
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder.Type">
-            <summary>
-            The type of this property
-            </summary>
-        </member>
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder.DeclaringType">
             <summary>
             The type this property is declared on
@@ -684,6 +679,11 @@
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder.Name">
             <summary>
             The name of this property
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder.Type">
+            <summary>
+            The type of this property
             </summary>
         </member>
         <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaPropertyHolder.#ctor(System.Reflection.PropertyInfo)">
@@ -703,9 +703,19 @@
             Wraps an instance of a System.Type allowing it to be used by the Meta system
             </summary>
         </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.AssemblyQualifiedName">
+            <summary>
+            The AssemblyQualifiedName for this Type
+            </summary>
+        </member>
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Attributes">
             <summary>
             A list of attributes found on the Type contained in this wrapper
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.BaseType">
+            <summary>
+            The BaseType for this type, MetaWrapped
             </summary>
         </member>
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.CollectionType">
@@ -723,36 +733,6 @@
             Returns the Default value for this type
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.IsNullable">
-            <summary>
-            True if this type is a Nullable?
-            </summary>
-        </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Parameters">
-            <summary>
-            The Generic arguments for this type, Meta Wrapped
-            </summary>
-        </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Properties">
-            <summary>
-            The properties for this Type, Meta Wrapped
-            </summary>
-        </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Values">
-            <summary>
-            If this type is an enum, this returns the values
-            </summary>
-        </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.AssemblyQualifiedName">
-            <summary>
-            The AssemblyQualifiedName for this Type
-            </summary>
-        </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.BaseType">
-            <summary>
-            The BaseType for this type, MetaWrapped
-            </summary>
-        </member>
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.FullName">
             <summary>
             The FullName for this type
@@ -768,6 +748,11 @@
             True if this type is an enum
             </summary>
         </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.IsNullable">
+            <summary>
+            True if this type is a Nullable?
+            </summary>
+        </member>
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.IsNumeric">
             <summary>
             True if this type is a numeric type
@@ -781,6 +766,21 @@
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Namespace">
             <summary>
             The Namespace this type is found in
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Parameters">
+            <summary>
+            The Generic arguments for this type, Meta Wrapped
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Properties">
+            <summary>
+            The properties for this Type, Meta Wrapped
+            </summary>
+        </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.Values">
+            <summary>
+            If this type is an enum, this returns the values
             </summary>
         </member>
         <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.#ctor(System.Type)">
