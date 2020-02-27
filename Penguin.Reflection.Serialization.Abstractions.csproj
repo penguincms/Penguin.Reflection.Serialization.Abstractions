@@ -11,6 +11,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Penguin.Reflection" Version="4.0.9-T9RVMZA" />
-    <PackageReference Include="Penguin.Reflection.Extensions" Version="3.0.5-T9RVMZA" />
+    <PackageReference Include="Penguin.Reflection.Extensions" Version="3.0.5-T9SAD4U" />
   </ItemGroup>
 </Project>
