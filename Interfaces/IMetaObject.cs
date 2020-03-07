@@ -59,7 +59,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Interfaces
         /// <summary>
         /// The index of the Value in the Meta dictionary, if the value of this object is cached there
         /// </summary>
-        int? v { get; set; }
+        int? V { get; set; }
 
         /// <summary>
         /// A string representation of the value if value type, or ToString if not
