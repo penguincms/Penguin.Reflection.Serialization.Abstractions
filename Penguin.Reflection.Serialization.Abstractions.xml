@@ -163,7 +163,7 @@
             The type information for this Meta instance
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.v">
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.V">
             <summary>
             The index of the Value in the Meta dictionary, if the value of this object is cached there
             </summary>
@@ -580,7 +580,7 @@
             The type of this MetaObject
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.v">
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.V">
             <summary>
             Not used
             </summary>
