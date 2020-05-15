@@ -13,7 +13,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// Does nothing for this object type
         /// </summary>
-        public int i => 0;
+        public int I => 0;
 
         /// <summary>
         /// Does nothing for this object type

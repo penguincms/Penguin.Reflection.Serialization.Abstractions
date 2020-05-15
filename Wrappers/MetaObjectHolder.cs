@@ -240,9 +240,8 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
 
         #endregion Methods
 
-        private bool? isRecursive;
         private readonly object value;
-
+        private bool? isRecursive;
         private IMetaObject Parent { get; set; }
     }
 }

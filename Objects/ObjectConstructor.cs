@@ -44,6 +44,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Constructors
 
         #endregion Constructors
 
-        private Type type { get; set; }
+        private readonly Type type;
     }
 }

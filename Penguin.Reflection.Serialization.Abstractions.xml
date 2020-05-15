@@ -19,7 +19,7 @@
             Shared interface allowing an object to pass through the Meta Serialization system
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta.i">
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta.I">
             <summary>
             An index where they object may be found in the MetaConstructor cache, or -1 of temporary instance
             </summary>
@@ -341,7 +341,7 @@
             Interface used to represent an object that holds a string (for redundancy avoidance during serialization)
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IStringHolder.v">
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IStringHolder.V">
             <summary>
             The actual value of the string
             </summary>
@@ -405,7 +405,7 @@
             Base class for defining properties for Meta holders
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder.i">
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder.I">
             <summary>
             Does nothing for this object type
             </summary>

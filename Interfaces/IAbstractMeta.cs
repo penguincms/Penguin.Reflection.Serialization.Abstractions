@@ -12,7 +12,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Interfaces
         /// <summary>
         /// An index where they object may be found in the MetaConstructor cache, or -1 of temporary instance
         /// </summary>
-        int i { get; }
+        int I { get; }
 
         /// <summary>
         /// True of this object has been reconstructed from the MetaData cache

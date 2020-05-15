@@ -10,7 +10,7 @@
         /// <summary>
         /// The actual value of the string
         /// </summary>
-        string v { get; set; }
+        string V { get; set; }
 
         #endregion Properties
     }

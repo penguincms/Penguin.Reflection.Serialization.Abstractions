@@ -12,7 +12,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// Returns a MetaObjectHolder instance representing the wrapped attribute instance
         /// </summary>
-        public IMetaObject Instance => new MetaObjectHolder(this);
+        public IMetaObject Instance => new MetaObjectHolder(this._value);
 
         /// <summary>
         /// Whether or not its declared on the parent of wherever it came from
@@ -52,6 +52,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
 
         #endregion Indexers
 
-        private object _value { get; set; }
+        private readonly object _value;
     }
 }
