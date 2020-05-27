@@ -71,7 +71,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
 
         #endregion Methods
 
-        private readonly PropertyInfo value;
+        internal readonly PropertyInfo value;
 
         private IList<IMetaAttribute> attributes;
     }

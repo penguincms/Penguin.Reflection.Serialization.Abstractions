@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Reflection;
 
 namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
 {
@@ -15,6 +16,8 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
     public class MetaObjectHolder : AbstractHolder, IMetaObject
     {
         #region Properties
+
+        private MetaPropertyHolder MetaProperty;
 
         /// <summary>
         /// Not Used
@@ -28,9 +31,14 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         {
             get
             {
+                if (this.value is null)
+                {
+                    return null;
+                }
+
                 List<IMetaObject> toReturn = new List<IMetaObject>();
 
-                foreach (object o in this as IEnumerable)
+                foreach (object o in this.value as IEnumerable)
                 {
                     toReturn.Add(new MetaObjectHolder(o));
                 }
@@ -60,14 +68,20 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         public IList<IMetaObject> Properties
         {
             get =>
-                TypeCache.GetProperties(this.value.GetType())
-                .Where(p => !p.GetIndexParameters().Any())
+                TypeCache.GetProperties(FoundType)
+                .Where(p => !p.GetIndexParameters().Any() && p.GetGetMethod() != null)
                 .Select(p
-                => new MetaObjectHolder(
-                p.GetValue(this.value),
-                this,
-                new MetaPropertyHolder(p)
-                )).ToList<IMetaObject>(); set { }
+                =>
+                {
+                    if (this.value is null)
+                    {
+                        return new MetaObjectHolder(null, this, new MetaPropertyHolder(p));
+                    }
+                    else
+                    {
+                        return new MetaObjectHolder(p.GetValue(this.value), this, new MetaPropertyHolder(p));
+                    }
+                }).ToList<IMetaObject>(); set { }
         }
 
         /// <summary>
@@ -80,7 +94,8 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// </summary>
         public IMetaObject Template
         {
-            get => new MetaObjectHolder(Activator.CreateInstance(this.value.GetType().GetCollectionType()));
+            get => new MetaObjectHolder(Activator.CreateInstance(FoundType.GetCollectionType()));
+
             set
             {
             }
@@ -89,7 +104,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// The type of this MetaObject
         /// </summary>
-        public IMetaType Type { get => new MetaTypeHolder(this.value.GetType()); set { } }
+        public IMetaType Type { get => new MetaTypeHolder(FoundType); set { } }
 
         /// <summary>
         /// Not used
@@ -99,7 +114,22 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// The string representation of the object held by this wrapper. Contains ToString
         /// </summary>
-        public string Value => this.value?.ToString();
+        public string Value
+        {
+            get
+            {
+                if (this.value is null || !this.value.GetType().IsEnum)
+                {
+                    return this.value?.ToString();
+                }
+                else
+                {
+                    Type backingType = Enum.GetUnderlyingType(this.value.GetType());
+
+                    return Convert.ChangeType(this.value, backingType).ToString();
+                }
+            }
+        }
 
         #endregion Properties
 
@@ -116,32 +146,67 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
             this.value = o;
             this.Parent = parent;
             this.Property = property;
+            this.MetaProperty = property;
         }
 
         #endregion Constructors
 
         #region Indexers
 
+        private Type FoundType
+        {
+            get
+            {
+                if (this.value is null)
+                {
+                    if (this.MetaProperty is null)
+                    {
+                        throw new NullReferenceException($"Can not get Type for {nameof(MetaObjectHolder)} with null value and no property set");
+                    }
+                    else
+                    {
+                        return this.MetaProperty.value.PropertyType;
+                    }
+                }
+                else
+                {
+                    return this.value.GetType();
+                }
+            }
+        }
+
         /// <summary>
         /// Casts a child property to a MetaObject using an IProperty definition
         /// </summary>
         /// <param name="metaProperty">the IProperty definition used to access</param>
         /// <returns>A MetaObject wrapped property value</returns>
-        public IMetaObject this[IMetaProperty metaProperty]
-        {
-            get
-            {
-                Contract.Requires(metaProperty != null);
-                return new MetaObjectHolder(this.value.GetType().GetProperty(metaProperty.Name).GetValue(this.value));
-            }
-        }
+        public IMetaObject this[IMetaProperty metaProperty] => this[metaProperty?.Name ?? throw new NullReferenceException("Can not find property for null MetaProperty")];
 
         /// <summary>
         /// Casts a child property to a MetaObject using a property name
         /// </summary>
         /// <param name="PropertyName">The name of the property to be accessed</param>
         /// <returns>A MetaObject wrapped property value</returns>
-        public IMetaObject this[string PropertyName] => new MetaObjectHolder(this.value.GetType().GetProperty(PropertyName).GetValue(this.value));
+        public IMetaObject this[string PropertyName]
+        {
+            get
+            {
+                Contract.Requires(PropertyName != null);
+
+                PropertyInfo prop = FoundType.GetProperty(PropertyName);
+
+                MetaPropertyHolder propertyHolder = new MetaPropertyHolder(prop);
+
+                if (this.value is null)
+                {
+                    return new MetaObjectHolder(null, this, propertyHolder);
+                }
+                else
+                {
+                    return new MetaObjectHolder(prop.GetValue(this.value), this, propertyHolder);
+                }
+            }
+        }
 
         #endregion Indexers
 
@@ -172,7 +237,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <returns></returns>
         public bool HasProperty(string propertyName)
         {
-            return TypeCache.GetProperties(this.value.GetType()).Any(p => p.Name == propertyName);
+            return TypeCache.GetProperties(FoundType).Any(p => p.Name == propertyName);
         }
 
         /// <summary>

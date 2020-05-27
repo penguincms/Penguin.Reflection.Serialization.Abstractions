@@ -795,5 +795,11 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaTypeHolder.ToString">
+            <summary>
+            Returns the full name of the type
+            </summary>
+            <returns>The full name of the type</returns>
+        </member>
     </members>
 </doc>

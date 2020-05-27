@@ -141,5 +141,11 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         #endregion Methods
 
         private readonly Type value;
+
+        /// <summary>
+        /// Returns the full name of the type
+        /// </summary>
+        /// <returns>The full name of the type</returns>
+        public override string ToString() => this.FullName;
     }
 }
