@@ -27,7 +27,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// If this Wrapper contains a collection, this list will contain the MetaObject representation of its contents
         /// </summary>
-        public IList<IMetaObject> CollectionItems
+        public IReadOnlyList<IMetaObject> CollectionItems
         {
             get
             {
@@ -53,11 +53,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         public int Exception { get; set; }
 
         /// <summary>
-        /// Not Used. Should probably be Internal
-        /// </summary>
-        public IDictionary<int, IAbstractMeta> Meta { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        /// <summary>
         /// Check if this wrapper was created from a Null
         /// </summary>
         public bool Null => this.value == null;
@@ -65,7 +60,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// A list of IMetaObjects representing the child properties for this value
         /// </summary>
-        public IList<IMetaObject> Properties
+        public IReadOnlyList<IMetaObject> Properties
         {
             get =>
                 TypeCache.GetProperties(FoundType)
@@ -105,11 +100,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// The type of this MetaObject
         /// </summary>
         public IMetaType Type { get => new MetaTypeHolder(FoundType); set { } }
-
-        /// <summary>
-        /// Not used
-        /// </summary>
-        public int? V { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         /// <summary>
         /// The string representation of the object held by this wrapper. Contains ToString
@@ -213,21 +203,18 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         #region Methods
 
         /// <summary>
+        /// Gets the Parent MetaObject for which this object is a child property. Null if top level
+        /// </summary>
+        /// <returns></returns>
+        IMetaObject IMetaObject.Parent { get => this.Parent; set => this.Parent = (MetaObjectHolder)value; }
+
+        /// <summary>
         /// Gets the abstract CoreType of the object held by this wrapper
         /// </summary>
         /// <returns></returns>
         public CoreType GetCoreType()
         {
             return this.Type.CoreType;
-        }
-
-        /// <summary>
-        /// Gets the Parent MetaObject for which this object is a child property. Null if top level
-        /// </summary>
-        /// <returns></returns>
-        public IMetaObject GetParent()
-        {
-            return this.Parent;
         }
 
         /// <summary>
@@ -258,40 +245,13 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
                         break;
                     }
 
-                    parent = parent.GetParent();
+                    parent = parent.Parent;
                 }
 
                 this.isRecursive = false;
             }
 
             return this.isRecursive.Value;
-        }
-
-        /// <summary>
-        /// Not Used
-        /// </summary>
-        /// <param name="instance">Not Used</param>
-        public void RemoveItem(IMetaObject instance)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Not Used
-        /// </summary>
-        /// <param name="instance">Not Used</param>
-        public void RemoveProperty(IMetaObject instance)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Sets the parent object for which this child is a property
-        /// </summary>
-        /// <param name="p">The parent MetaObject</param>
-        public void SetParent(IMetaObject p)
-        {
-            this.Parent = p;
         }
 
         /// <summary>

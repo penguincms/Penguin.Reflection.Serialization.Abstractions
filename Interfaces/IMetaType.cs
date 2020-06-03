@@ -73,12 +73,12 @@ namespace Penguin.Reflection.Serialization.Abstractions.Interfaces
         /// <summary>
         /// A list of generic parameters needed to construct this type
         /// </summary>
-        IList<IMetaType> Parameters { get; }
+        IReadOnlyList<IMetaType> Parameters { get; }
 
         /// <summary>
         /// If this type is an Enum (or equivalent), this contains the possible values
         /// </summary>
-        IList<IEnumValue> Values { get; }
+        IReadOnlyList<IEnumValue> Values { get; }
 
         #endregion Properties
 

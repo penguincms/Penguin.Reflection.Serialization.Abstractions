@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface used to represent an object that holds a string (for redundancy avoidance during serialization)
     /// </summary>
-    public interface IStringHolder : IAbstractMeta
+    public interface IStringHolder : IAbstractMeta, IHydratable
     {
         #region Properties
 

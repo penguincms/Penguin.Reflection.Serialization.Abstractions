@@ -83,17 +83,17 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// The Generic arguments for this type, Meta Wrapped
         /// </summary>
-        public IList<IMetaType> Parameters => this.value.GetGenericArguments().Select(t => new MetaTypeHolder(t)).ToList<IMetaType>();
+        public IReadOnlyList<IMetaType> Parameters => this.value.GetGenericArguments().Select(t => new MetaTypeHolder(t)).ToList<IMetaType>();
 
         /// <summary>
         /// The properties for this Type, Meta Wrapped
         /// </summary>
-        public IList<IMetaProperty> Properties => TypeCache.GetProperties(this.value).Select(t => new MetaPropertyHolder(t)).ToList<IMetaProperty>();
+        public IReadOnlyList<IMetaProperty> Properties => TypeCache.GetProperties(this.value).Select(t => new MetaPropertyHolder(t)).ToList<IMetaProperty>();
 
         /// <summary>
         /// If this type is an enum, this returns the values
         /// </summary>
-        public IList<IEnumValue> Values
+        public IReadOnlyList<IEnumValue> Values
         {
             get
             {

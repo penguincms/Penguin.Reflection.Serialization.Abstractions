@@ -19,31 +19,6 @@
             Shared interface allowing an object to pass through the Meta Serialization system
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta.I">
-            <summary>
-            An index where they object may be found in the MetaConstructor cache, or -1 of temporary instance
-            </summary>
-        </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta.IsHydrated">
-            <summary>
-            True of this object has been reconstructed from the MetaData cache
-            </summary>
-        </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta.Hydrate(System.Collections.Generic.IDictionary{System.Int32,Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta})">
-            <summary>
-            Recursively hydrates this object and all of this children
-            </summary>
-            <param name="meta">The metadata dictionary representing the object cache</param>
-        </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta.HydrateChild``1(``0,System.Collections.Generic.IDictionary{System.Int32,Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta})">
-            <summary>
-            Recursively hydrates a single property on a Meta object
-            </summary>
-            <typeparam name="T">Any type</typeparam>
-            <param name="toHydrate">The property to hydrate</param>
-            <param name="meta">The metadata dictionary representing the object cache</param>
-            <returns>The Hydrated object</returns>
-        </member>
         <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.IEnumValue">
             <summary>
             An interface used for representing an Enum value (or equivalent)
@@ -117,25 +92,9 @@
             Interface used to allow an object to pass through the Meta Serialization system
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.BuildExceptions">
-            <summary>
-            Index of errors that occured while creating this instance
-            </summary>
-        </member>
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.CollectionItems">
             <summary>
             If this object is a collection, this list should contain the contents
-            </summary>
-        </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Exception">
-            <summary>
-            If this object was not created due to an error, this should contain the ID of the error
-            </summary>
-        </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Meta">
-            <summary>
-            An instance of the cache which is required to be exposed for any objects being serialized to JSON since the
-            Serialization works on this interface
             </summary>
         </member>
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Null">
@@ -163,11 +122,6 @@
             The type information for this Meta instance
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.V">
-            <summary>
-            The index of the Value in the Meta dictionary, if the value of this object is cached there
-            </summary>
-        </member>
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Value">
             <summary>
             A string representation of the value if value type, or ToString if not
@@ -187,17 +141,17 @@
             <param name="PropertyName">The nam of the property to retrieve</param>
             <returns>The IMetaObject value of the property</returns>
         </member>
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.Parent">
+            <summary>
+            If this object is from a parent, this should retrieve it. Unreliable for local types
+            </summary>
+            <returns>The parent object</returns>
+        </member>
         <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.GetCoreType">
             <summary>
             The CoreType of this IMetaObject
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.GetParent">
-            <summary>
-            If this object is from a parent, this should retrieve it. Unreliable for local types
-            </summary>
-            <returns>The parent object</returns>
         </member>
         <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.HasProperty(System.String)">
             <summary>
@@ -211,24 +165,6 @@
             For referential types, this should indicate if this object is is part of a recursive hierarchy so it can be skipped
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.RemoveItem(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject)">
-            <summary>
-            Optionally allows for removing an item from the collection
-            </summary>
-            <param name="instance">The item to remove from the collection</param>
-        </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.RemoveProperty(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject)">
-            <summary>
-            Optionally allows for removing a property from an IMetaObject
-            </summary>
-            <param name="instance">The property instance to remove</param>
-        </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject.SetParent(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject)">
-            <summary>
-            Used to set the parent of the object, can be called during recursive traversal to ensure that the UNRELIABLE parent property returns correctly
-            </summary>
-            <param name="p">The IMetaObject to set as a parent</param>
         </member>
         <member name="T:Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaProperty">
             <summary>
@@ -550,11 +486,6 @@
             Not Used
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Meta">
-            <summary>
-            Not Used. Should probably be Internal
-            </summary>
-        </member>
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Null">
             <summary>
             Check if this wrapper was created from a Null
@@ -578,11 +509,6 @@
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Type">
             <summary>
             The type of this MetaObject
-            </summary>
-        </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.V">
-            <summary>
-            Not used
             </summary>
         </member>
         <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Value">
@@ -612,15 +538,15 @@
             <param name="PropertyName">The name of the property to be accessed</param>
             <returns>A MetaObject wrapped property value</returns>
         </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.GetCoreType">
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.Penguin#Reflection#Serialization#Abstractions#Interfaces#IMetaObject#Parent">
             <summary>
-            Gets the abstract CoreType of the object held by this wrapper
+            Gets the Parent MetaObject for which this object is a child property. Null if top level
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.GetParent">
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.GetCoreType">
             <summary>
-            Gets the Parent MetaObject for which this object is a child property. Null if top level
+            Gets the abstract CoreType of the object held by this wrapper
             </summary>
             <returns></returns>
         </member>
@@ -636,24 +562,6 @@
             Checks to see if the upline of the object is recursive
             </summary>
             <returns>A bool representing whether or not the upline of the object is recursivee</returns>
-        </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.RemoveItem(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject)">
-            <summary>
-            Not Used
-            </summary>
-            <param name="instance">Not Used</param>
-        </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.RemoveProperty(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject)">
-            <summary>
-            Not Used
-            </summary>
-            <param name="instance">Not Used</param>
-        </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.SetParent(Penguin.Reflection.Serialization.Abstractions.Interfaces.IMetaObject)">
-            <summary>
-            Sets the parent object for which this child is a property
-            </summary>
-            <param name="p">The parent MetaObject</param>
         </member>
         <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.TypeOf">
             <summary>

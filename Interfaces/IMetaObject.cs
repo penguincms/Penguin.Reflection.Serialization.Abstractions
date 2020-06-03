@@ -11,25 +11,9 @@ namespace Penguin.Reflection.Serialization.Abstractions.Interfaces
         #region Properties
 
         /// <summary>
-        /// Index of errors that occured while creating this instance
-        /// </summary>
-        IDictionary<int, string> BuildExceptions { get; set; }
-
-        /// <summary>
         /// If this object is a collection, this list should contain the contents
         /// </summary>
-        IList<IMetaObject> CollectionItems { get; set; }
-
-        /// <summary>
-        /// If this object was not created due to an error, this should contain the ID of the error
-        /// </summary>
-        int Exception { get; set; }
-
-        /// <summary>
-        /// An instance of the cache which is required to be exposed for any objects being serialized to JSON since the
-        /// Serialization works on this interface
-        /// </summary>
-        IDictionary<int, IAbstractMeta> Meta { get; set; }
+        IReadOnlyList<IMetaObject> CollectionItems { get; }
 
         /// <summary>
         /// True if the input value was null during creation
@@ -39,27 +23,22 @@ namespace Penguin.Reflection.Serialization.Abstractions.Interfaces
         /// <summary>
         /// A list of the accessible (child) properties for this object
         /// </summary>
-        IList<IMetaObject> Properties { get; set; }
+        IReadOnlyList<IMetaObject> Properties { get; }
 
         /// <summary>
         /// The parent property referencing this object. Unreliable in local types
         /// </summary>
-        IMetaProperty Property { get; set; }
+        IMetaProperty Property { get; }
 
         /// <summary>
         /// If this is a collection, this should contain an empty instance of the collection unit type (for creating new children)
         /// </summary>
-        IMetaObject Template { get; set; }
+        IMetaObject Template { get; }
 
         /// <summary>
         /// The type information for this Meta instance
         /// </summary>
-        IMetaType Type { get; set; }
-
-        /// <summary>
-        /// The index of the Value in the Meta dictionary, if the value of this object is cached there
-        /// </summary>
-        int? V { get; set; }
+        IMetaType Type { get; }
 
         /// <summary>
         /// A string representation of the value if value type, or ToString if not
@@ -89,16 +68,16 @@ namespace Penguin.Reflection.Serialization.Abstractions.Interfaces
         #region Methods
 
         /// <summary>
+        /// If this object is from a parent, this should retrieve it. Unreliable for local types
+        /// </summary>
+        /// <returns>The parent object</returns>
+        IMetaObject Parent { get; set; }
+
+        /// <summary>
         /// The CoreType of this IMetaObject
         /// </summary>
         /// <returns></returns>
         CoreType GetCoreType();
-
-        /// <summary>
-        /// If this object is from a parent, this should retrieve it. Unreliable for local types
-        /// </summary>
-        /// <returns>The parent object</returns>
-        IMetaObject GetParent();
 
         /// <summary>
         /// Checks to see if the object has a property of a name
@@ -112,24 +91,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Interfaces
         /// </summary>
         /// <returns></returns>
         bool IsRecursive();
-
-        /// <summary>
-        /// Optionally allows for removing an item from the collection
-        /// </summary>
-        /// <param name="instance">The item to remove from the collection</param>
-        void RemoveItem(IMetaObject instance);
-
-        /// <summary>
-        /// Optionally allows for removing a property from an IMetaObject
-        /// </summary>
-        /// <param name="instance">The property instance to remove</param>
-        void RemoveProperty(IMetaObject instance);
-
-        /// <summary>
-        /// Used to set the parent of the object, can be called during recursive traversal to ensure that the UNRELIABLE parent property returns correctly
-        /// </summary>
-        /// <param name="p">The IMetaObject to set as a parent</param>
-        void SetParent(IMetaObject p);
 
         #endregion Methods
     }

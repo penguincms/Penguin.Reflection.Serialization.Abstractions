@@ -12,7 +12,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Interfaces
         /// <summary>
         /// The properties of the IMetaType
         /// </summary>
-        IList<IMetaProperty> Properties { get; }
+        IReadOnlyList<IMetaProperty> Properties { get; }
 
         #endregion Properties
     }
