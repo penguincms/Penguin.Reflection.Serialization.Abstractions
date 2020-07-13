@@ -351,12 +351,6 @@
             Does nothing for this object type
             </summary>
         </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder.Hydrate(System.Collections.Generic.IDictionary{System.Int32,Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta})">
-            <summary>
-            Does nothing for this object type
-            </summary>
-            <param name="meta">Does nothing for this object type</param>
-        </member>
         <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder.HydrateChild``1(``0,System.Collections.Generic.IDictionary{System.Int32,Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta})">
             <summary>
             Does nothing for this object type

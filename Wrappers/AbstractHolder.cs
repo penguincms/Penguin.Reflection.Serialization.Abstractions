@@ -8,20 +8,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
     /// </summary>
     public class AbstractHolder
     {
-        #region Properties
-
-        /// <summary>
-        /// Does nothing for this object type
-        /// </summary>
-        public int I => 0;
-
-        /// <summary>
-        /// Does nothing for this object type
-        /// </summary>
-        public bool IsHydrated { get => true; set { } }
-
-        #endregion Properties
-
         #region Methods
 
         /// <summary>

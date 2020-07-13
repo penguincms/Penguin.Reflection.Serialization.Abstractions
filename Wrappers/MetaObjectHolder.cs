@@ -17,7 +17,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
     {
         #region Properties
 
-        private MetaPropertyHolder MetaProperty;
+        private readonly MetaPropertyHolder MetaProperty;
 
         /// <summary>
         /// Not Used
@@ -143,6 +143,37 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
 
         #region Indexers
 
+        /// <summary>
+        /// Casts a child property to a MetaObject using an IProperty definition
+        /// </summary>
+        /// <param name="metaProperty">the IProperty definition used to access</param>
+        /// <returns>A MetaObject wrapped property value</returns>
+        public IMetaObject this[IMetaProperty metaProperty] => this[metaProperty?.Name ?? throw new NullReferenceException("Can not find property for null MetaProperty")];
+
+        /// <summary>
+        /// Casts a child property to a MetaObject using a property name
+        /// </summary>
+        /// <param name="PropertyName">The name of the property to be accessed</param>
+        /// <returns>A MetaObject wrapped property value</returns>
+        public IMetaObject this[string PropertyName]
+        {
+            get
+            {
+                PropertyInfo prop = FoundType.GetProperty(PropertyName);
+
+                MetaPropertyHolder propertyHolder = new MetaPropertyHolder(prop);
+
+                if (this.value is null)
+                {
+                    return new MetaObjectHolder(null, this, propertyHolder);
+                }
+                else
+                {
+                    return new MetaObjectHolder(prop.GetValue(this.value), this, propertyHolder);
+                }
+            }
+        }
+
         private Type FoundType
         {
             get
@@ -161,39 +192,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
                 else
                 {
                     return this.value.GetType();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Casts a child property to a MetaObject using an IProperty definition
-        /// </summary>
-        /// <param name="metaProperty">the IProperty definition used to access</param>
-        /// <returns>A MetaObject wrapped property value</returns>
-        public IMetaObject this[IMetaProperty metaProperty] => this[metaProperty?.Name ?? throw new NullReferenceException("Can not find property for null MetaProperty")];
-
-        /// <summary>
-        /// Casts a child property to a MetaObject using a property name
-        /// </summary>
-        /// <param name="PropertyName">The name of the property to be accessed</param>
-        /// <returns>A MetaObject wrapped property value</returns>
-        public IMetaObject this[string PropertyName]
-        {
-            get
-            {
-                Contract.Requires(PropertyName != null);
-
-                PropertyInfo prop = FoundType.GetProperty(PropertyName);
-
-                MetaPropertyHolder propertyHolder = new MetaPropertyHolder(prop);
-
-                if (this.value is null)
-                {
-                    return new MetaObjectHolder(null, this, propertyHolder);
-                }
-                else
-                {
-                    return new MetaObjectHolder(prop.GetValue(this.value), this, propertyHolder);
                 }
             }
         }
@@ -230,7 +228,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// Checks to see if the upline of the object is recursive
         /// </summary>
-        /// <returns>A bool representing whether or not the upline of the object is recursivee</returns>
+        /// <returns>A bool representing whether or not the upline of the object is recursive</returns>
         public bool IsRecursive()
         {
             if (!this.isRecursive.HasValue)
