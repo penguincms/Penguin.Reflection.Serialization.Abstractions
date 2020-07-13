@@ -27,12 +27,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// Does nothing for this object type
         /// </summary>
-        /// <param name="meta">Does nothing for this object type</param>
-        public void Hydrate(IDictionary<int, IAbstractMeta> meta = null) { }
-
-        /// <summary>
-        /// Does nothing for this object type
-        /// </summary>
         /// <typeparam name="T">Does nothing for this object type</typeparam>
         /// <param name="toHydrate">Does nothing for this object type</param>
         /// <param name="meta">Does nothing for this object type</param>
