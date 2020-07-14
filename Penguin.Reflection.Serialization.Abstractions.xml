@@ -341,16 +341,6 @@
             Base class for defining properties for Meta holders
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder.I">
-            <summary>
-            Does nothing for this object type
-            </summary>
-        </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder.IsHydrated">
-            <summary>
-            Does nothing for this object type
-            </summary>
-        </member>
         <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.AbstractHolder.HydrateChild``1(``0,System.Collections.Generic.IDictionary{System.Int32,Penguin.Reflection.Serialization.Abstractions.Interfaces.IAbstractMeta})">
             <summary>
             Does nothing for this object type
@@ -555,7 +545,7 @@
             <summary>
             Checks to see if the upline of the object is recursive
             </summary>
-            <returns>A bool representing whether or not the upline of the object is recursivee</returns>
+            <returns>A bool representing whether or not the upline of the object is recursive</returns>
         </member>
         <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.MetaObjectHolder.TypeOf">
             <summary>
