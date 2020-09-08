@@ -10,7 +10,7 @@
     <DocumentationFile>Penguin.Reflection.Serialization.Abstractions.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Penguin.Reflection" Version="5.0.1-T9ZTQVZ" />
-    <PackageReference Include="Penguin.Reflection.Extensions" Version="5.0.1-T9ZTQVZ" />
+    <PackageReference Include="Penguin.Reflection" Version="5.0.1-TA29PDE" />
+    <PackageReference Include="Penguin.Reflection.Extensions" Version="5.0.1-TA29PDE" />
   </ItemGroup>
 </Project>
