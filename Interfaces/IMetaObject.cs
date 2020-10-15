@@ -1,4 +1,5 @@
 ﻿using Penguin.Reflection.Abstractions;
+using Penguin.Reflection.Serialization.Abstractions.Attributes;
 using System.Collections.Generic;
 
 namespace Penguin.Reflection.Serialization.Abstractions.Interfaces
@@ -71,6 +72,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Interfaces
         /// If this object is from a parent, this should retrieve it. Unreliable for local types
         /// </summary>
         /// <returns>The parent object</returns>
+        [SkipMetaSerialization]
         IMetaObject Parent { get; set; }
 
         /// <summary>
