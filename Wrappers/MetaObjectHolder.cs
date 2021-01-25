@@ -4,7 +4,6 @@ using Penguin.Reflection.Serialization.Abstractions.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Reflection;
 
@@ -63,7 +62,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         public IReadOnlyList<IMetaObject> Properties
         {
             get =>
-                TypeCache.GetProperties(FoundType)
+                TypeCache.GetProperties(this.FoundType)
                 .Where(p => !p.GetIndexParameters().Any() && p.GetGetMethod() != null)
                 .Select(p
                 =>
@@ -89,7 +88,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// </summary>
         public IMetaObject Template
         {
-            get => new MetaObjectHolder(Activator.CreateInstance(FoundType.GetCollectionType()));
+            get => new MetaObjectHolder(Activator.CreateInstance(this.FoundType.GetCollectionType()));
 
             set
             {
@@ -99,7 +98,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// The type of this MetaObject
         /// </summary>
-        public IMetaType Type { get => new MetaTypeHolder(FoundType); set { } }
+        public IMetaType Type { get => new MetaTypeHolder(this.FoundType); set { } }
 
         /// <summary>
         /// The string representation of the object held by this wrapper. Contains ToString
@@ -159,7 +158,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         {
             get
             {
-                PropertyInfo prop = FoundType.GetProperty(PropertyName);
+                PropertyInfo prop = this.FoundType.GetProperty(PropertyName);
 
                 MetaPropertyHolder propertyHolder = new MetaPropertyHolder(prop);
 
@@ -222,7 +221,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <returns></returns>
         public bool HasProperty(string propertyName)
         {
-            return TypeCache.GetProperties(FoundType).Any(p => p.Name == propertyName);
+            return TypeCache.GetProperties(this.FoundType).Any(p => p.Name == propertyName);
         }
 
         /// <summary>
