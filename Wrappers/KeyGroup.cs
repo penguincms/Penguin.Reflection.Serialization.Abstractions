@@ -48,10 +48,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <param name="obj1">The first keygroup</param>
         /// <param name="obj2">the second keygroup</param>
         /// <returns>whether or not the groups are equal</returns>
-        public static bool operator !=(KeyGroup obj1, KeyGroup obj2)
-        {
-            return !(obj1 == obj2);
-        }
+        public static bool operator !=(KeyGroup obj1, KeyGroup obj2) => !(obj1 == obj2);
 
         /// <summary>
         /// Tests for equality between keygroups

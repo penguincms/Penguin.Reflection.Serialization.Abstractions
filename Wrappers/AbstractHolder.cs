@@ -17,10 +17,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <param name="toHydrate">Does nothing for this object type</param>
         /// <param name="meta">Does nothing for this object type</param>
         /// <returns>Does nothing for this object type</returns>
-        public T HydrateChild<T>(T toHydrate, IDictionary<int, IAbstractMeta> meta) where T : IAbstractMeta
-        {
-            return toHydrate;
-        }
+        public T HydrateChild<T>(T toHydrate, IDictionary<int, IAbstractMeta> meta) where T : IAbstractMeta => toHydrate;
 
         /// <summary>
         /// Does nothing for this object type

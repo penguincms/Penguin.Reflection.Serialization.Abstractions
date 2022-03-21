@@ -133,10 +133,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// Returns the type of the "Type" wrapped by this instance
         /// </summary>
         /// <returns></returns>
-        public IMetaType TypeOf()
-        {
-            return this.value is null ? null : new MetaTypeHolder(this.value);
-        }
+        public IMetaType TypeOf() => this.value is null ? null : new MetaTypeHolder(this.value);
 
         #endregion Methods
 
@@ -146,9 +143,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// Returns the full name of the type
         /// </summary>
         /// <returns>The full name of the type</returns>
-        public override string ToString()
-        {
-            return this.FullName;
-        }
+        public override string ToString() => this.FullName;
     }
 }
