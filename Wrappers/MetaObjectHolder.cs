@@ -41,6 +41,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
                 {
                     toReturn.Add(new MetaObjectHolder(o));
                 }
+
                 return toReturn;
             }
             set { }

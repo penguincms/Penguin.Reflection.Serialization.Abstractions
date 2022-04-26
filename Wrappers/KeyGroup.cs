@@ -84,7 +84,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
                 }
                 else
                 {
-                    toCheck2.Remove(o);
+                    _ = toCheck2.Remove(o);
                 }
             }
 
@@ -102,6 +102,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
             {
                 return false;
             }
+
             if (ReferenceEquals(this, other))
             {
                 return true;
@@ -118,7 +119,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
                 }
                 else
                 {
-                    toCheck2.Remove(o);
+                    _ = toCheck2.Remove(o);
                 }
             }
 
@@ -136,6 +137,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
@@ -157,7 +159,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
                 }
                 else
                 {
-                    toCheck2.Remove(o);
+                    _ = toCheck2.Remove(o);
                 }
             }
 
