@@ -210,14 +210,20 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// Gets the abstract CoreType of the object held by this wrapper
         /// </summary>
         /// <returns></returns>
-        public CoreType GetCoreType() => this.Type.CoreType;
+        public CoreType GetCoreType()
+        {
+            return this.Type.CoreType;
+        }
 
         /// <summary>
         /// Check to see if this MetaObject has a property matching the given name
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        public bool HasProperty(string propertyName) => TypeCache.GetProperties(this.FoundType).Any(p => p.Name == propertyName);
+        public bool HasProperty(string propertyName)
+        {
+            return TypeCache.GetProperties(this.FoundType).Any(p => p.Name == propertyName);
+        }
 
         /// <summary>
         /// Checks to see if the upline of the object is recursive
@@ -250,7 +256,10 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// Returns the Type of this MetaObjects value
         /// </summary>
         /// <returns>The Type of this MetaObjects value</returns>
-        public IMetaType TypeOf() => this.Type;
+        public IMetaType TypeOf()
+        {
+            return this.Type;
+        }
 
         #endregion Methods
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Penguin.Reflection.Serialization.Abstractions.Constructors
+namespace Penguin.Reflection.Serialization.Abstractions.Objects
 {
     /// <summary>
     /// Encapsulates common data needed by MetaObject constructors
@@ -38,7 +38,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Constructors
         public ObjectConstructor(PropertyInfo pi, Type t, object o)
         {
             this.type = this.type ?? t;
-            this.PropertyInfo = this.PropertyInfo ?? pi;
+            this.PropertyInfo = this.PropertyInfo ??  pi;
             this.Object = o;
         }
 

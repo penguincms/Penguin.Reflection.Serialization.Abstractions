@@ -64,7 +64,10 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// Returns the type of the property represented by this wrapper
         /// </summary>
         /// <returns>The type of the property represented by this wrapper</returns>
-        public IMetaType TypeOf() => this.Type;
+        public IMetaType TypeOf()
+        {
+            return this.Type;
+        }
 
         #endregion Methods
 

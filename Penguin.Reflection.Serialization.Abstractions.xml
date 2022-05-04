@@ -308,27 +308,27 @@
             The underlying data (int, long, etc) in string form
             </summary>
         </member>
-        <member name="T:Penguin.Reflection.Serialization.Abstractions.Constructors.ObjectConstructor">
+        <member name="T:Penguin.Reflection.Serialization.Abstractions.Objects.ObjectConstructor">
             <summary>
             Encapsulates common data needed by MetaObject constructors
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Constructors.ObjectConstructor.Object">
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Objects.ObjectConstructor.Object">
             <summary>
             An object instance to create
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Constructors.ObjectConstructor.PropertyInfo">
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Objects.ObjectConstructor.PropertyInfo">
             <summary>
             The property Info representing the object instance
             </summary>
         </member>
-        <member name="P:Penguin.Reflection.Serialization.Abstractions.Constructors.ObjectConstructor.Type">
+        <member name="P:Penguin.Reflection.Serialization.Abstractions.Objects.ObjectConstructor.Type">
             <summary>
             The type of the object
             </summary>
         </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Constructors.ObjectConstructor.#ctor(System.Reflection.PropertyInfo,System.Type,System.Object)">
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Objects.ObjectConstructor.#ctor(System.Reflection.PropertyInfo,System.Type,System.Object)">
             <summary>
             Creates a new instance of the object constructor
             </summary>
@@ -374,7 +374,7 @@
             </summary>
             <param name="objects"></param>
         </member>
-        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup.#ctor(Penguin.Reflection.Serialization.Abstractions.Constructors.ObjectConstructor)">
+        <member name="M:Penguin.Reflection.Serialization.Abstractions.Wrappers.KeyGroup.#ctor(Penguin.Reflection.Serialization.Abstractions.Objects.ObjectConstructor)">
             <summary>
             Creates a new keygroup from an object constructor
             </summary>
