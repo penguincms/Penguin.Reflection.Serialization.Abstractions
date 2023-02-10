@@ -6,7 +6,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Attributes
     /// Attribute telling the MetaSerialization to skip this property
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class SkipMetaSerializationAttribute : Attribute
+    public sealed class SkipMetaSerializationAttribute : Attribute
     {
     }
 }

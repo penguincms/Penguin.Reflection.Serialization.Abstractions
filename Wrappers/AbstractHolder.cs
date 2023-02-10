@@ -28,7 +28,8 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <typeparam name="T">Does nothing for this object type</typeparam>
         /// <param name="toHydrate">Does nothing for this object type</param>
         /// <param name="meta">Does nothing for this object type</param>
-        public void HydrateList<T>(IList<T> toHydrate, IDictionary<int, IAbstractMeta> meta) where T : IAbstractMeta { }
+        public void HydrateList<T>(IList<T> toHydrate, IDictionary<int, IAbstractMeta> meta) where T : IAbstractMeta
+        { }
 
         #endregion Methods
     }

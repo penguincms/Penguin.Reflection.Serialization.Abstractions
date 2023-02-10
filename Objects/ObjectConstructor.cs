@@ -23,7 +23,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Objects
         /// <summary>
         /// The type of the object
         /// </summary>
-        public Type Type => this.type ?? this.Object?.GetType() ?? this.PropertyInfo?.PropertyType;
+        public Type Type => type ?? Object?.GetType() ?? PropertyInfo?.PropertyType;
 
         #endregion Properties
 
@@ -37,9 +37,9 @@ namespace Penguin.Reflection.Serialization.Abstractions.Objects
         /// <param name="o">An object instance to create</param>
         public ObjectConstructor(PropertyInfo pi, Type t, object o)
         {
-            this.type = this.type ?? t;
-            this.PropertyInfo = this.PropertyInfo ??  pi;
-            this.Object = o;
+            type ??= t;
+            PropertyInfo ??= pi;
+            Object = o;
         }
 
         #endregion Constructors

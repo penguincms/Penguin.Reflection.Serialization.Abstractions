@@ -27,7 +27,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <param name="objects"></param>
         public KeyGroup(params object[] objects)
         {
-            this.Objects = new HashSet<object>(objects);
+            Objects = new HashSet<object>(objects);
         }
 
         /// <summary>
@@ -76,8 +76,8 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
                 return false;
             }
 
-            HashSet<object> toCheck1 = new HashSet<object>(obj1.Objects);
-            HashSet<object> toCheck2 = new HashSet<object>(obj2.Objects);
+            HashSet<object> toCheck1 = new(obj1.Objects);
+            HashSet<object> toCheck2 = new(obj2.Objects);
 
             foreach (object o in toCheck1)
             {
@@ -111,8 +111,8 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
                 return true;
             }
 
-            HashSet<object> toCheck1 = new HashSet<object>(this.Objects);
-            HashSet<object> toCheck2 = new HashSet<object>(other.Objects);
+            HashSet<object> toCheck1 = new(Objects);
+            HashSet<object> toCheck2 = new(other.Objects);
 
             foreach (object o in toCheck1)
             {
@@ -146,13 +146,13 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
                 return true;
             }
 
-            if (!(obj is KeyGroup))
+            if (obj is not KeyGroup)
             {
                 return false;
             }
 
-            HashSet<object> toCheck1 = new HashSet<object>(this.Objects);
-            HashSet<object> toCheck2 = new HashSet<object>((obj as KeyGroup).Objects);
+            HashSet<object> toCheck1 = new(Objects);
+            HashSet<object> toCheck2 = new((obj as KeyGroup).Objects);
 
             foreach (object o in toCheck1)
             {
@@ -177,7 +177,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         {
             unchecked
             {
-                return Convert.ToInt32(this.Objects.Average(o => o?.GetHashCode() ?? 0));
+                return Convert.ToInt32(Objects.Average(o => o?.GetHashCode() ?? 0));
             }
         }
 

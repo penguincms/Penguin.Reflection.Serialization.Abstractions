@@ -12,7 +12,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// Returns a MetaObjectHolder instance representing the wrapped attribute instance
         /// </summary>
-        public IMetaObject Instance => new MetaObjectHolder(this._value);
+        public IMetaObject Instance => new MetaObjectHolder(_value);
 
         /// <summary>
         /// Whether or not its declared on the parent of wherever it came from
@@ -22,7 +22,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// The type of this wrapped attribute
         /// </summary>
-        public IMetaType Type => new MetaTypeHolder(this._value?.GetType());
+        public IMetaType Type => new MetaTypeHolder(_value?.GetType());
 
         #endregion Properties
 
@@ -35,8 +35,8 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <param name="isInherited">Whether or not its declared on the parent of wherever it came from</param>
         public MetaAttributeHolder(object a, bool isInherited)
         {
-            this._value = a;
-            this.IsInherited = isInherited;
+            _value = a;
+            IsInherited = isInherited;
         }
 
         #endregion Constructors
@@ -48,7 +48,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// </summary>
         /// <param name="PropertyName">The name of the property to wrap</param>
         /// <returns>The wrapped property value</returns>
-        public IMetaObject this[string PropertyName] => new MetaObjectHolder(this._value.GetType().GetProperty(PropertyName).GetValue(this._value));
+        public IMetaObject this[string PropertyName] => new MetaObjectHolder(_value.GetType().GetProperty(PropertyName).GetValue(_value));
 
         #endregion Indexers
 

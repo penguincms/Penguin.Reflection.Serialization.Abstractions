@@ -19,29 +19,26 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         {
             get
             {
-                if (this.attributes is null)
-                {
-                    this.attributes = TypeCache.GetCustomAttributes(this.value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).Cast<IMetaAttribute>().ToList();
-                }
+                attributes ??= TypeCache.GetCustomAttributes(value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).Cast<IMetaAttribute>().ToList();
 
-                return this.attributes;
+                return attributes;
             }
         }
 
         /// <summary>
         /// The type this property is declared on
         /// </summary>
-        public IMetaType DeclaringType => new MetaTypeHolder(this.value.DeclaringType);
+        public IMetaType DeclaringType => new MetaTypeHolder(value.DeclaringType);
 
         /// <summary>
         /// The name of this property
         /// </summary>
-        public string Name => this.value.Name;
+        public string Name => value.Name;
 
         /// <summary>
         /// The type of this property
         /// </summary>
-        public IMetaType Type => new MetaTypeHolder(this.value.PropertyType);
+        public IMetaType Type => new MetaTypeHolder(value.PropertyType);
 
         #endregion Properties
 
@@ -53,7 +50,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <param name="p">The property info to wrap</param>
         public MetaPropertyHolder(PropertyInfo p)
         {
-            this.value = p;
+            value = p;
         }
 
         #endregion Constructors
@@ -66,7 +63,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <returns>The type of the property represented by this wrapper</returns>
         public IMetaType TypeOf()
         {
-            return this.Type;
+            return Type;
         }
 
         #endregion Methods

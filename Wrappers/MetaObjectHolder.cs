@@ -30,14 +30,14 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         {
             get
             {
-                if (this.value is null)
+                if (value is null)
                 {
                     return null;
                 }
 
-                List<IMetaObject> toReturn = new List<IMetaObject>();
+                List<IMetaObject> toReturn = new();
 
-                foreach (object o in this.value as IEnumerable)
+                foreach (object o in value as IEnumerable)
                 {
                     toReturn.Add(new MetaObjectHolder(o));
                 }
@@ -55,7 +55,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// Check if this wrapper was created from a Null
         /// </summary>
-        public bool Null => this.value == null;
+        public bool Null => value == null;
 
         /// <summary>
         /// A list of IMetaObjects representing the child properties for this value
@@ -63,19 +63,14 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         public IReadOnlyList<IMetaObject> Properties
         {
             get =>
-                TypeCache.GetProperties(this.FoundType)
+                TypeCache.GetProperties(FoundType)
                 .Where(p => !p.GetIndexParameters().Any() && p.GetGetMethod() != null)
                 .Select(p
                 =>
                 {
-                    if (this.value is null)
-                    {
-                        return new MetaObjectHolder(null, this, new MetaPropertyHolder(p));
-                    }
-                    else
-                    {
-                        return new MetaObjectHolder(p.GetValue(this.value), this, new MetaPropertyHolder(p));
-                    }
+                    return value is null
+                        ? new MetaObjectHolder(null, this, new MetaPropertyHolder(p))
+                        : new MetaObjectHolder(p.GetValue(value), this, new MetaPropertyHolder(p));
                 }).ToList<IMetaObject>(); set { }
         }
 
@@ -89,7 +84,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// </summary>
         public IMetaObject Template
         {
-            get => new MetaObjectHolder(Activator.CreateInstance(this.FoundType.GetCollectionType()));
+            get => new MetaObjectHolder(Activator.CreateInstance(FoundType.GetCollectionType()));
 
             set
             {
@@ -99,7 +94,8 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// The type of this MetaObject
         /// </summary>
-        public IMetaType Type { get => new MetaTypeHolder(this.FoundType); set { } }
+        public IMetaType Type
+        { get => new MetaTypeHolder(FoundType); set { } }
 
         /// <summary>
         /// The string representation of the object held by this wrapper. Contains ToString
@@ -108,15 +104,15 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         {
             get
             {
-                if (this.value is null || !this.value.GetType().IsEnum)
+                if (value is null || !value.GetType().IsEnum)
                 {
-                    return this.value?.ToString();
+                    return value?.ToString();
                 }
                 else
                 {
-                    Type backingType = Enum.GetUnderlyingType(this.value.GetType());
+                    Type backingType = Enum.GetUnderlyingType(value.GetType());
 
-                    return Convert.ChangeType(this.value, backingType).ToString();
+                    return Convert.ChangeType(value, backingType).ToString();
                 }
             }
         }
@@ -133,10 +129,10 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <param name="property">Property information representing the relationship between this object and its parent</param>
         public MetaObjectHolder(object o, MetaObjectHolder parent = null, MetaPropertyHolder property = null)
         {
-            this.value = o;
-            this.Parent = parent;
-            this.Property = property;
-            this.MetaProperty = property;
+            value = o;
+            Parent = parent;
+            Property = property;
+            MetaProperty = property;
         }
 
         #endregion Constructors
@@ -159,42 +155,21 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         {
             get
             {
-                PropertyInfo prop = this.FoundType.GetProperty(PropertyName);
+                PropertyInfo prop = FoundType.GetProperty(PropertyName);
 
-                MetaPropertyHolder propertyHolder = new MetaPropertyHolder(prop);
+                MetaPropertyHolder propertyHolder = new(prop);
 
-                if (this.value is null)
-                {
-                    return new MetaObjectHolder(null, this, propertyHolder);
-                }
-                else
-                {
-                    return new MetaObjectHolder(prop.GetValue(this.value), this, propertyHolder);
-                }
+                return value is null
+                    ? new MetaObjectHolder(null, this, propertyHolder)
+                    : (IMetaObject)new MetaObjectHolder(prop.GetValue(value), this, propertyHolder);
             }
         }
 
-        private Type FoundType
-        {
-            get
-            {
-                if (this.value is null)
-                {
-                    if (this.MetaProperty is null)
-                    {
-                        throw new NullReferenceException($"Can not get Type for {nameof(MetaObjectHolder)} with null value and no property set");
-                    }
-                    else
-                    {
-                        return this.MetaProperty.value.PropertyType;
-                    }
-                }
-                else
-                {
-                    return this.value.GetType();
-                }
-            }
-        }
+        private Type FoundType => value is null
+                    ? MetaProperty is null
+                        ? throw new NullReferenceException($"Can not get Type for {nameof(MetaObjectHolder)} with null value and no property set")
+                        : MetaProperty.value.PropertyType
+                    : value.GetType();
 
         #endregion Indexers
 
@@ -204,7 +179,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// Gets the Parent MetaObject for which this object is a child property. Null if top level
         /// </summary>
         /// <returns></returns>
-        IMetaObject IMetaObject.Parent { get => this.Parent; set => this.Parent = (MetaObjectHolder)value; }
+        IMetaObject IMetaObject.Parent { get => Parent; set => Parent = (MetaObjectHolder)value; }
 
         /// <summary>
         /// Gets the abstract CoreType of the object held by this wrapper
@@ -212,7 +187,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <returns></returns>
         public CoreType GetCoreType()
         {
-            return this.Type.CoreType;
+            return Type.CoreType;
         }
 
         /// <summary>
@@ -222,7 +197,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <returns></returns>
         public bool HasProperty(string propertyName)
         {
-            return TypeCache.GetProperties(this.FoundType).Any(p => p.Name == propertyName);
+            return TypeCache.GetProperties(FoundType).Any(p => p.Name == propertyName);
         }
 
         /// <summary>
@@ -231,25 +206,25 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <returns>A bool representing whether or not the upline of the object is recursive</returns>
         public bool IsRecursive()
         {
-            if (!this.isRecursive.HasValue)
+            if (!isRecursive.HasValue)
             {
-                IMetaObject parent = this.Parent;
+                IMetaObject parent = Parent;
 
                 while (parent != null)
                 {
                     if (this == parent)
                     {
-                        this.isRecursive = true;
+                        isRecursive = true;
                         break;
                     }
 
                     parent = parent.Parent;
                 }
 
-                this.isRecursive = false;
+                isRecursive = false;
             }
 
-            return this.isRecursive.Value;
+            return isRecursive.Value;
         }
 
         /// <summary>
@@ -258,13 +233,14 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <returns>The Type of this MetaObjects value</returns>
         public IMetaType TypeOf()
         {
-            return this.Type;
+            return Type;
         }
 
         #endregion Methods
 
         private readonly object value;
         private bool? isRecursive;
-        private IMetaObject Parent { get; set; }
+
+        protected IMetaObject Parent { get; set; }
     }
 }
