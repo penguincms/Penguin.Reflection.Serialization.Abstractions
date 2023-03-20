@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="Penguin.Projects.Shared\Penguin.Projects.Shared.csproj" />
   <PropertyGroup>
-    <PackageProjectUrl>https://github.com/PenguinCMS/Penguin.Reflection.Serialization.Abstractions</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/PenguinCms/Penguin.Reflection.Serialization.Abstractions</PackageProjectUrl>
     <Version>5.0.5</Version>
     <Description>Abstract types for use in the Penguin.Reflection.Serialization system</Description>
     <TargetFrameworks>netstandard2.1;net7.0</TargetFrameworks>
