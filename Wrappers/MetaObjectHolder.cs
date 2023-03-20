@@ -1,4 +1,5 @@
-﻿using Penguin.Reflection.Abstractions;
+﻿using Loxifi;
+using Penguin.Reflection.Abstractions;
 using Penguin.Reflection.Extensions;
 using Penguin.Reflection.Serialization.Abstractions.Interfaces;
 using System;
@@ -47,6 +48,11 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
             set { }
         }
 
+        private TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings()
+        {
+            LoadUnloadedAssemblies = true
+        });
+
         /// <summary>
         /// Not Used
         /// </summary>
@@ -63,7 +69,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         public IReadOnlyList<IMetaObject> Properties
         {
             get =>
-                TypeCache.GetProperties(FoundType)
+                TypeFactory.GetProperties(FoundType)
                 .Where(p => !p.GetIndexParameters().Any() && p.GetGetMethod() != null)
                 .Select(p
                 =>
@@ -197,7 +203,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <returns></returns>
         public bool HasProperty(string propertyName)
         {
-            return TypeCache.GetProperties(FoundType).Any(p => p.Name == propertyName);
+            return TypeFactory.GetProperties(FoundType).Any(p => p.Name == propertyName);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using Penguin.Reflection.Abstractions;
+﻿using Loxifi;
+using Penguin.Reflection.Abstractions;
 using Penguin.Reflection.Extensions;
 using Penguin.Reflection.Serialization.Abstractions.Interfaces;
 using Penguin.Reflection.Serialization.Abstractions.Objects;
@@ -14,7 +15,10 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
     public class MetaTypeHolder : AbstractHolder, IMetaType
     {
         #region Properties
-
+        private TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings()
+        {
+            LoadUnloadedAssemblies = true
+        });
         /// <summary>
         /// The AssemblyQualifiedName for this Type
         /// </summary>
@@ -23,7 +27,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// A list of attributes found on the Type contained in this wrapper
         /// </summary>
-        public IEnumerable<IMetaAttribute> Attributes => TypeCache.GetCustomAttributes(value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).ToList<IMetaAttribute>();
+        public IEnumerable<IMetaAttribute> Attributes => TypeFactory.GetCustomAttributes(value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).ToList<IMetaAttribute>();
 
         /// <summary>
         /// The BaseType for this type, MetaWrapped
@@ -89,7 +93,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// The properties for this Type, Meta Wrapped
         /// </summary>
-        public IReadOnlyList<IMetaProperty> Properties => TypeCache.GetProperties(value).Select(t => new MetaPropertyHolder(t)).ToList<IMetaProperty>();
+        public IReadOnlyList<IMetaProperty> Properties => TypeFactory.GetProperties(value).Select(t => new MetaPropertyHolder(t)).ToList<IMetaProperty>();
 
         /// <summary>
         /// If this type is an enum, this returns the values

@@ -1,4 +1,5 @@
-﻿using Penguin.Reflection.Serialization.Abstractions.Interfaces;
+﻿using Loxifi;
+using Penguin.Reflection.Serialization.Abstractions.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using PropertyInfo = System.Reflection.PropertyInfo;
@@ -11,6 +12,10 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
     public class MetaPropertyHolder : AbstractHolder, IMetaProperty
     {
         #region Properties
+        private TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings()
+        {
+            LoadUnloadedAssemblies = true
+        });
 
         /// <summary>
         /// Retrieves a list of wrapped attributes found on this propertyinfo
@@ -19,7 +24,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         {
             get
             {
-                attributes ??= TypeCache.GetCustomAttributes(value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).Cast<IMetaAttribute>().ToList();
+                attributes ??= TypeFactory.GetCustomAttributes(value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).Cast<IMetaAttribute>().ToList();
 
                 return attributes;
             }
