@@ -15,10 +15,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
     public class MetaTypeHolder : AbstractHolder, IMetaType
     {
         #region Properties
-        private TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings()
-        {
-            LoadUnloadedAssemblies = true
-        });
         /// <summary>
         /// The AssemblyQualifiedName for this Type
         /// </summary>
@@ -27,7 +23,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// A list of attributes found on the Type contained in this wrapper
         /// </summary>
-        public IEnumerable<IMetaAttribute> Attributes => TypeFactory.GetCustomAttributes(value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).ToList<IMetaAttribute>();
+        public IEnumerable<IMetaAttribute> Attributes => TypeFactory.Default.GetCustomAttributes(value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).ToList<IMetaAttribute>();
 
         /// <summary>
         /// The BaseType for this type, MetaWrapped
@@ -93,7 +89,7 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         /// <summary>
         /// The properties for this Type, Meta Wrapped
         /// </summary>
-        public IReadOnlyList<IMetaProperty> Properties => TypeFactory.GetProperties(value).Select(t => new MetaPropertyHolder(t)).ToList<IMetaProperty>();
+        public IReadOnlyList<IMetaProperty> Properties => TypeFactory.Default.GetProperties(value).Select(t => new MetaPropertyHolder(t)).ToList<IMetaProperty>();
 
         /// <summary>
         /// If this type is an enum, this returns the values

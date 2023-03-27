@@ -12,10 +12,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
     public class MetaPropertyHolder : AbstractHolder, IMetaProperty
     {
         #region Properties
-        private TypeFactory TypeFactory { get; set; } = new TypeFactory(new TypeFactorySettings()
-        {
-            LoadUnloadedAssemblies = true
-        });
 
         /// <summary>
         /// Retrieves a list of wrapped attributes found on this propertyinfo
@@ -24,9 +20,9 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
         {
             get
             {
-                attributes ??= TypeFactory.GetCustomAttributes(value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).Cast<IMetaAttribute>().ToList();
+                _attributes ??= TypeFactory.Default.GetCustomAttributes(value).Select(a => new MetaAttributeHolder(a.Instance, a.IsInherited)).Cast<IMetaAttribute>().ToList();
 
-                return attributes;
+                return _attributes;
             }
         }
 
@@ -75,6 +71,6 @@ namespace Penguin.Reflection.Serialization.Abstractions.Wrappers
 
         internal readonly PropertyInfo value;
 
-        private IList<IMetaAttribute> attributes;
+        private IList<IMetaAttribute> _attributes;
     }
 }
